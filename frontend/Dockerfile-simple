@@ -1,0 +1,30 @@
+# Build stage
+FROM node:12-alpine as build
+
+WORKDIR /app
+
+# Copiar package.json e instalar dependências
+COPY triagem-frontend/package*.json ./
+RUN npm ci --only=production
+
+# Copiar código fonte e construir
+COPY triagem-frontend/ .
+RUN npm run build --prod
+
+# Production stage - Nginx simples sem backend
+FROM nginx:alpine
+
+# Remover configuração padrão
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copiar configuração nginx simplificada
+COPY nginx-simple.conf /etc/nginx/conf.d/default.conf
+
+# Copiar arquivos construídos do Angular
+COPY --from=build /app/dist/triagem-frontend /usr/share/nginx/html
+
+# Expor porta 80
+EXPOSE 80
+
+# Comando para iniciar nginx
+CMD ["nginx", "-g", "daemon off;"]

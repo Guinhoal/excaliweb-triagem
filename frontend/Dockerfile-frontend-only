@@ -1,0 +1,39 @@
+# Build stage: Angular (frontend only)
+FROM node:18-alpine AS build
+WORKDIR /app
+
+# Install build dependencies (git may be needed for some packages)
+RUN apk add --no-cache python3 make g++ git
+
+# Copy dependency manifests
+COPY triagem-frontend/package*.json ./
+
+# Install dependencies (including dev for build)
+RUN npm ci
+
+# Copy source
+COPY triagem-frontend/ .
+
+# Build (production configuration)
+RUN npm run build
+
+# Runtime stage: Nginx serving static files only
+FROM nginx:alpine
+
+# Remove default config
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Copy simplified nginx config (no backend proxies)
+COPY nginx-simple.conf /etc/nginx/conf.d/default.conf
+
+# Copy compiled Angular dist
+COPY --from=build /app/dist/triagem-frontend /usr/share/nginx/html
+
+# Create log directory (persisted by volume in compose)
+RUN mkdir -p /var/log/nginx
+
+EXPOSE 80
+
+# Simple health endpoint already defined in nginx-simple.conf (/health)
+
+CMD ["nginx", "-g", "daemon off;"]
