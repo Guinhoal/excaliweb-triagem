@@ -1,0 +1,421 @@
+.dashboard-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto !important;
+    padding: 2rem;
+}
+
+.main-container.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.dashboard-header h1 {
+    font-size: 2.5rem;
+    color: var(--unimed-green);
+    margin-bottom: 1rem;
+}
+
+.dashboard-header p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.patient-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.patient-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.patient-card.red {
+    border-left: 4px solid #e74c3c;
+}
+
+.patient-card.orange {
+    border-left: 4px solid #f39c12;
+}
+
+.patient-card.yellow {
+    border-left: 4px solid #f1c40f;
+}
+
+.patient-card.green {
+    border-left: 4px solid #27ae60;
+}
+
+.patient-card h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+    font-size: 1.25rem;
+}
+
+.patient-info {
+    flex: 1;
+}
+
+.patient-info p {
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.patient-info strong {
+    color: var(--text-dark);
+}
+
+.priority-high {
+    background-color: #e74c3c;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.priority-medium {
+    background-color: #f39c12;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.priority-low {
+    background-color: #27ae60;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.patient-actions {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-primary {
+    background-color: var(--unimed-green);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: #007a4a;
+}
+
+// Adicionar estilos para controles de visualização e ordenação
+.view-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+    padding: 0.5rem 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.view-options,
+.sort-options {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.view-btn,
+.sort-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.view-btn:hover,
+.sort-btn:hover {
+    background-color: #e9ecef;
+    color: var(--unimed-green);
+}
+
+.view-btn.active {
+    color: var(--unimed-green);
+    background-color: rgba(0, 153, 93, 0.1);
+}
+
+// Estilos aprimorados para o carrossel
+.dashboard-carousel {
+    width: 100%;
+    position: relative;
+    margin: 2rem 0;
+    padding: 1rem 0;
+}
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 2rem 0;
+}
+
+.carousel-content {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.carousel-card {
+    width: 100%;
+    max-width: 700px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.carousel-btn {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: var(--unimed-green);
+    cursor: pointer;
+    padding: 0 1.5rem;
+    z-index: 10;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+
+.carousel-btn:hover:not(:disabled) {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.carousel-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator:hover {
+    background-color: #aaa;
+}
+
+.indicator.active {
+    background-color: var(--unimed-green);
+    transform: scale(1.2);
+}
+
+// Estilos aprimorados para visualização em lista
+.dashboard-list {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    background-color: white;
+}
+
+.list-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 1fr 1fr 1fr;
+    background-color: var(--unimed-green);
+    color: white;
+    font-weight: 600;
+    padding: 1.25rem 1rem;
+    text-align: left;
+    font-size: 1.05rem;
+}
+
+.list-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr 1fr 1fr 1fr;
+    padding: 1.25rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    align-items: center;
+    background-color: white;
+    transition: all 0.2s ease;
+}
+
+.list-row:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.list-col {
+    padding: 0 0.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Melhorando o estilo dos botões dentro da lista
+.btn-small {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
+// Estilos para estatísticas
+.stats-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 1rem;
+    border-radius: 8px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.stat-card.red {
+    background-color: #e74c3c;
+}
+
+.stat-card.orange {
+    background-color: #f39c12;
+}
+
+.stat-card.yellow {
+    background-color: #f1c40f;
+    color: #333;
+}
+
+.stat-card.green {
+    background-color: #27ae60;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+// Estilos para estados vazios
+.empty-state {
+    text-align: center;
+    padding: 4rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.empty-state h3 {
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+}
+
+.empty-state p {
+    color: var(--text-light);
+}
+
+// Estilos para etiquetas de urgência
+.urgency-label {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.urgency-label.red {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.urgency-label.orange {
+    background-color: #f39c12;
+    color: white;
+}
+
+.urgency-label.yellow {
+    background-color: #f1c40f;
+    color: #333;
+}
+
+.urgency-label.green {
+    background-color: #27ae60;
+    color: white;
+}

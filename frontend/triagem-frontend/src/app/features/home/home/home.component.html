@@ -1,0 +1,89 @@
+<header class="header">
+  <div class="logo">Excaliweb <span>para UNIMED-BH</span></div>
+  <nav class="header-nav">
+    <a *ngIf="!authService.isLoggedIn()" routerLink="/auth/login" class="nav-button" id="loginLink">Login / Cadastro</a>
+    <ng-container *ngIf="authService.isLoggedIn()">
+      <a (click)="logout()" class="nav-button" id="logoutLink">Sair</a>
+      <a *ngIf="!isDoctorLoggedIn" routerLink="/auth/complete-profile" class="nav-button" id="completeProfileLink">Completar Perfil</a>
+    </ng-container>
+  </nav>
+</header>
+
+<main class="main-container">
+  <section class="chatbot-section">
+    <div class="chat-header">Assistente de Triagem Virtual</div>
+    <div class="chat-messages" #chatMessages>
+      <!-- Mensagem informativa quando não há mensagens -->
+      <div *ngIf="messages.length === 0" class="message bot-message" style="text-align: center; color: #666;">
+        <p style="margin: 0 0 12px 0;">👋 Bem-vindo ao sistema de triagem virtual da UNIMED-BH</p>
+        <p style="margin: 0; font-size: 0.9em;">
+          <span *ngIf="!authService.isLoggedIn()">Por favor, faça <a href="/auth/login" style="color: #007bff;">login</a> para começar.</span>
+          <span *ngIf="authService.isLoggedIn()">🔧 Sistema em manutenção. Use nosso WhatsApp para atendimento.</span>
+        </p>
+      </div>
+      
+      <!-- Mensagens do chat -->
+      <div *ngFor="let message of messages" class="message" [ngClass]="message.sender + '-message'" [innerHTML]="message.text">
+      </div>
+      
+      <!-- Indicador de digitação -->
+      <div *ngIf="isTyping" class="message bot-message typing-indicator">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input 
+        type="text" 
+        [(ngModel)]="userInput" 
+        (keyup.enter)="sendMessage()"
+        placeholder="Digite sua mensagem..." 
+        autocomplete="off"
+        #userInputElement>
+      <button (click)="sendMessage()" aria-label="Enviar Mensagem">&#10148;</button>
+    </div>
+    
+  </section>
+
+  <section class="analysis-section" [class.hidden]="!showAnalysisSection">
+    <div class="analysis-card">
+      <h2>Análise do Médico</h2>
+      <div class="patient-data">
+        <div class="data-item">
+          <strong>Paciente:</strong>
+          <span>{{ patientData.name || 'Aguardando dados...' }}</span>
+        </div>
+        <div class="data-item">
+          <strong>Idade:</strong>
+          <span>{{ patientData.age || 'Aguardando dados...' }}</span>
+        </div>
+        <div class="data-item">
+          <strong>Sintoma Principal:</strong>
+          <span>{{ patientData.symptom || 'Aguardando dados...' }}</span>
+        </div>
+        <div class="data-item">
+          <strong>Duração:</strong>
+          <span>{{ patientData.duration || 'Aguardando dados...' }}</span>
+        </div>
+        <div class="data-item">
+          <strong>Outros Sintomas:</strong>
+          <span>{{ patientData.otherSymptoms || 'Aguardando dados...' }}</span>
+        </div>
+      </div>
+      <div class="doctor-notes" *ngIf="isDoctorLoggedIn">
+        <label for="doctorNotes">Recomendação do Médico:</label>
+        <textarea 
+          [(ngModel)]="doctorNotes" 
+          rows="5" 
+          placeholder="Digite a análise e recomendação para o paciente...">
+        </textarea>
+      </div>
+      <button *ngIf="isDoctorLoggedIn" (click)="sendAnalysis()" class="btn-primary">Enviar Análise</button>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2025 Excaliweb. Todos os direitos reservados.</p>
+</footer>

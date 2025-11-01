@@ -1,0 +1,84 @@
+<header class="header">
+  <div class="logo">Excaliweb <span>para UNIMED-BH</span></div>
+  <nav class="header-nav">
+    <a routerLink="/home" class="nav-button">Ir para Chatbot</a>
+  </nav>
+</header>
+
+<main class="main-container">
+  <div class="login-container">
+    <div class="login-card">
+      <h1 class="login-title">Completar Perfil do Paciente</h1>
+      <p style="text-align: center; margin-bottom: 24px; color: #666;">
+        Complete seu perfil para uma melhor experiência de atendimento
+      </p>
+      
+      <form class="login-form" (ngSubmit)="save()" #detailsForm="ngForm">
+        <div class="form-group">
+          <label for="age">Idade:</label>
+          <input 
+            id="age" 
+            name="age" 
+            type="number" 
+            min="0" 
+            max="120" 
+            [(ngModel)]="details.age"
+            class="form-control"
+            placeholder="Informe sua idade" />
+        </div>
+        
+        <div class="form-group">
+          <label for="blood">Tipo Sanguíneo:</label>
+          <select 
+            id="blood" 
+            name="blood_type" 
+            [(ngModel)]="details.blood_type"
+            class="form-control">
+            <option value="">Selecione seu tipo sanguíneo</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="allergy">Alergias:</label>
+          <textarea 
+            id="allergy" 
+            name="allergy" 
+            [(ngModel)]="details.allergy"
+            class="form-control"
+            rows="3"
+            placeholder="Informe suas alergias (medicamentos, alimentos, etc.)"></textarea>
+        </div>
+
+        <div class="login-actions">
+          <button 
+            type="submit" 
+            class="btn-primary" 
+            [disabled]="isLoading"
+            [class.loading]="isLoading">
+            <span *ngIf="!isLoading">💾 Salvar Perfil</span>
+            <span *ngIf="isLoading">Salvando...</span>
+          </button>
+          
+          <div class="register-link">
+            <a routerLink="/home" class="btn-link">Pular por enquanto</a>
+          </div>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="success-message" *ngIf="successMessage">{{ successMessage }}</div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2025 Excaliweb. Todos os direitos reservados.</p>
+</footer>

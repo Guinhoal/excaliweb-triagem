@@ -1,0 +1,76 @@
+<header class="header">
+  <div class="logo">Excaliweb <span>para UNIMED-BH</span></div>
+  <nav class="header-nav">
+    <a routerLink="/home" class="nav-button">Voltar ao Atendimento</a>
+  </nav>
+</header>
+
+<main class="main-container">
+  <div class="login-container">
+    <div class="login-card">
+      <h1 class="login-title">Login</h1>
+    <p style="margin-top:-8px;opacity:.8">Entre com seu email e senha. Pacientes serão levados ao chatbot; médicos ao dashboard.</p>
+      <form class="login-form" (ngSubmit)="onLogin()" #loginForm="ngForm">
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email"
+            [(ngModel)]="loginData.email"
+            #email="ngModel"
+            required 
+            email
+            placeholder="Digite seu email">
+          <div class="error-message" *ngIf="email.invalid && email.touched">
+            <span *ngIf="email.errors?.['required']">Email é obrigatório</span>
+            <span *ngIf="email.errors?.['email']">Email deve ser válido</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <input 
+            type="password" 
+            id="password" 
+            name="password"
+            [(ngModel)]="loginData.password"
+            #password="ngModel"
+            required 
+            minlength="6"
+            placeholder="Digite sua senha">
+          <div class="error-message" *ngIf="password.invalid && password.touched">
+            <span *ngIf="password.errors?.['required']">Senha é obrigatória</span>
+            <span *ngIf="password.errors?.['minlength']">Senha deve ter pelo menos 6 caracteres</span>
+          </div>
+        </div>
+
+        <div class="login-actions">
+          <button 
+            type="submit" 
+            class="btn btn-primary"
+            [disabled]="loginForm.invalid || isLoading">
+            {{ isLoading ? 'Entrando...' : 'Entrar' }}
+          </button>
+          
+          <div class="register-link">
+          Não tem conta?
+          <a routerLink="/auth/register">Cadastre-se como Paciente ou Médico</a>
+          </div>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <div class="success-message" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2025 Excaliweb. Todos os direitos reservados.</p>
+</footer>

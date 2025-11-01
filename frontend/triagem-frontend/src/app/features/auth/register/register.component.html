@@ -1,0 +1,174 @@
+<header class="header">
+  <div class="logo">Excaliweb <span>para UNIMED-BH</span></div>
+  <nav class="header-nav">
+    <a routerLink="/home" class="nav-button">Voltar ao Atendimento</a>
+  </nav>
+</header>
+
+<main class="main-container">
+  <div class="login-container">
+    <div class="login-card">
+      <h1 class="login-title">Cadastro</h1>
+
+      <div class="role-selection" style="margin-bottom: 24px; padding: 16px; background: #f5f5f5; border-radius: 8px;">
+        <label style="font-weight: bold; display: block; margin-bottom: 12px;">Tipo de Usuário:</label>
+        <div style="display:flex; gap:20px; justify-content: center;">
+          <label class="role-option" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="radio" name="role" [(ngModel)]="registerData.role" [value]="'patient'" (change)="onRoleChange()">
+            <span>👤 Paciente</span>
+          </label>
+          <label class="role-option" style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+            <input type="radio" name="role" [(ngModel)]="registerData.role" [value]="'doctor'" (change)="onRoleChange()">
+            <span>👨‍⚕️ Médico</span>
+          </label>
+        </div>
+      </div>
+
+      <form class="login-form" (ngSubmit)="onRegister()" #registerForm="ngForm" novalidate>
+        <div class="form-group">
+          <label for="name">Nome Completo:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            [(ngModel)]="registerData.name"
+            #name="ngModel"
+            required
+            minlength="2"
+            class="form-control"
+            placeholder="Digite seu nome completo">
+          <div class="error-message" *ngIf="name.invalid && name.touched">
+            <span *ngIf="name.errors?.['required']">Nome é obrigatório.</span>
+            <span *ngIf="name.errors?.['minlength']">Nome deve ter pelo menos 2 caracteres.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="registerData.email"
+            #email="ngModel"
+            required
+            email
+            class="form-control"
+            placeholder="Digite seu email">
+          <div class="error-message" *ngIf="email.invalid && email.touched">
+            <span *ngIf="email.errors?.['required']">Email é obrigatório.</span>
+            <span *ngIf="email.errors?.['email']">Email deve ter um formato válido.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cpf">CPF:</label>
+          <input
+            type="text"
+            id="cpf"
+            name="cpf"
+            [(ngModel)]="registerData.cpf"
+            #cpf="ngModel"
+            class="form-control"
+            placeholder="000.000.000-00"
+            maxlength="14"
+            (input)="onCpfInput($event)">
+          
+        </div>
+
+        <div class="form-group" *ngIf="registerData.role === 'doctor'">
+          <label for="crm">CRM:</label>
+          <input
+            type="text"
+            id="crm"
+            name="crm"
+            [(ngModel)]="registerData.crm"
+            #crm="ngModel"
+            [required]="registerData.role === 'doctor'"
+            class="form-control"
+            placeholder="Digite seu CRM">
+          <div class="error-message" *ngIf="crm.invalid && crm.touched && registerData.role === 'doctor'">
+            <span *ngIf="crm.errors?.['required']">CRM é obrigatório para médicos.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Telefone:</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            [(ngModel)]="registerData.phone_number"
+            #phone="ngModel"
+            class="form-control"
+            placeholder="(31) 99999-9999"
+            maxlength="15"
+            (input)="onPhoneInput($event)">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            [(ngModel)]="registerData.password"
+            #password="ngModel"
+            required
+            minlength="8"
+            class="form-control"
+            placeholder="Digite sua senha (mín. 8 caracteres)">
+          <div class="error-message" *ngIf="password.invalid && password.touched">
+            <span *ngIf="password.errors?.['required']">Senha é obrigatória.</span>
+            <span *ngIf="password.errors?.['minlength']">Senha deve ter pelo menos 8 caracteres.</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar Senha:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            [(ngModel)]="registerData.confirmPassword"
+            #confirmPassword="ngModel"
+            required
+            class="form-control"
+            placeholder="Confirme sua senha">
+          <div class="error-message" *ngIf="confirmPassword.invalid && confirmPassword.touched">
+            <span *ngIf="confirmPassword.errors?.['required']">Confirmação de senha é obrigatória.</span>
+          </div>
+          <div class="error-message" *ngIf="registerData.password !== registerData.confirmPassword && confirmPassword.touched">
+            <span>As senhas não coincidem.</span>
+          </div>
+        </div>
+
+        <div class="login-actions">
+          <button
+            type="submit"
+            class="btn-primary"
+            [disabled]="registerForm.invalid || isLoading || registerData.password !== registerData.confirmPassword"
+            [class.loading]="isLoading">
+            <span *ngIf="!isLoading">{{ registerData.role === 'doctor' ? 'Cadastrar como Médico' : 'Cadastrar como Paciente' }}</span>
+            <span *ngIf="isLoading">Cadastrando...</span>
+          </button>
+          <div class="register-link">
+            Já tem conta?
+            <a routerLink="/auth/login">Faça Login</a>
+          </div>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+        <div class="success-message" *ngIf="successMessage">
+          {{ successMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>&copy; 2025 Excaliweb. Todos os direitos reservados.</p>
+</footer>

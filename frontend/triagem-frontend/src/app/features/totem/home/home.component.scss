@@ -1,0 +1,86 @@
+.totem-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.totem-container h1 {
+    font-size: 2.5rem;
+    color: var(--unimed-green);
+    margin-bottom: 1rem;
+}
+
+.totem-container p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 3rem;
+    max-width: 600px;
+}
+
+.totem-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+    max-width: 500px;
+}
+
+.totem-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    line-height: 1.2;
+}
+
+.totem-btn i {
+    font-size: 2.5rem;
+    line-height: 1;
+}
+
+.totem-btn span {
+    text-align: left;
+}
+
+.totem-btn small {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: none;
+}
+
+.totem-btn.btn-primary { 
+    background-color: var(--unimed-green); 
+    color: var(--white); 
+}
+
+.totem-btn.btn-secondary { 
+    background-color: var(--white); 
+    color: var(--unimed-green); 
+    border: 2px solid var(--unimed-green); 
+}
+
+.totem-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.totem-btn.btn-primary:hover {
+    background-color: #007a4a;
+}
+
+.totem-btn.btn-secondary:hover {
+    background-color: var(--unimed-light-green);
+}
