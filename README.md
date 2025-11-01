@@ -1,9 +1,21 @@
 # Triagem MVP
 
+Sistema de triagem médica com chatbot inteligente, integração WhatsApp e dashboard para médicos.
+
 ## Como subir localmente com Docker
 
-1. Crie o arquivo `.env` (já existe um exemplo na raiz) com as variáveis:
-- POSTGRES_PASSWORD, DJANGO_SECRET_KEY, DOMAIN_NAME, TZ
+1. **Configure as variáveis de ambiente:**
+   - Copie o arquivo `.env.example` para `.env`:
+     ```bash
+     cp .env.example .env
+     ```
+   - Edite o arquivo `.env` e configure suas credenciais:
+     - `POSTGRES_PASSWORD`: Senha do banco de dados
+     - `DJANGO_SECRET_KEY`: Chave secreta do Django (use uma longa e aleatória)
+     - `DOMAIN_NAME`: Seu domínio ou IP
+     - `GROQ_API_KEY`: Sua chave da API Groq (obtenha em https://console.groq.com)
+     - `EVOLUTION_API_KEY`: Chave da Evolution API para WhatsApp
+     - Outras variáveis conforme necessário
 
 2. Suba os serviços:
 
